@@ -1550,7 +1550,7 @@ public class GridCachePartitionExchangeManager<K, V> extends GridCacheSharedMana
      * @param timeout Operation timeout.
      * @return {@code True} if found long running operations.
      */
-    private boolean dumpLongRunningOperations0(long timeout) {
+    public boolean dumpLongRunningOperations0(long timeout) {
         long curTime = U.currentTimeMillis();
 
         boolean found = false;
