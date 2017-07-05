@@ -846,8 +846,7 @@ public abstract class IgniteTxLocalAdapter extends IgniteTxAdapter implements Ig
 
                             try {
                                 // Courtesy to minimize damage.
-                                if (!nodeStopping)
-                                    uncommit();
+                                uncommit(nodeStopping);
                             }
                             catch (Throwable ex1) {
                                 U.error(log, "Failed to uncommit transaction: " + this, ex1);
