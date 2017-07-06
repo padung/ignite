@@ -964,7 +964,7 @@ public class GridCacheProcessor extends GridProcessorAdapter {
         // No new caches should be added after this point.
         exch.onKernalStop(cancel);
 
-        onKernalStopCaches(cancel);
+        sharedCtx.mvcc().onStop();
 
         for (CacheGroupContext grp : cacheGrps.values())
             grp.onKernalStop();
