@@ -323,22 +323,23 @@ public final class GridNearTxFinishFuture<K, V> extends GridCacheCompoundIdentit
                 if (tx.onePhaseCommit()) {
                     boolean commit = this.commit && err == null;
 
-                    if (!nodeStop)
+                    if (!nodeStop) {
                         finishOnePhase(commit);
 
-                    try {
-                        tx.tmFinish(commit);
-                    }
-                    catch (IgniteCheckedException e) {
-                        U.error(log, "Failed to finish tx: " + tx, e);
+                        try {
+                            tx.tmFinish(commit);
+                        }
+                        catch (IgniteCheckedException e) {
+                            U.error(log, "Failed to finish tx: " + tx, e);
 
-                        if (err == null)
-                            err = e;
+                            if (err == null)
+                                err = e;
+                        }
                     }
                 }
 
                 if (super.onDone(tx0, err)) {
-                    if (error() instanceof IgniteTxHeuristicCheckedException) {
+                    if (error() instanceof IgniteTxHeuristicCheckedException && !nodeStop) {
                         AffinityTopologyVersion topVer = tx.topologyVersion();
 
                         for (IgniteTxEntry e : tx.writeMap().values()) {
