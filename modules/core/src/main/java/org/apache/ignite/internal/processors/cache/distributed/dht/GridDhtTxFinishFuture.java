@@ -227,8 +227,7 @@ public final class GridDhtTxFinishFuture<K, V> extends GridCacheCompoundIdentity
                 try {
                     boolean nodeStop = err != null && X.hasCause(err, NodeStoppingException.class);
 
-                    if (!nodeStop)
-                        this.tx.tmFinish(err == null);
+                    this.tx.tmFinish(err == null, nodeStop);
                 }
                 catch (IgniteCheckedException finishErr) {
                     U.error(log, "Failed to finish tx: " + tx, e);
