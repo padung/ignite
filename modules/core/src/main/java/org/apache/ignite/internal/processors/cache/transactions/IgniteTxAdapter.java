@@ -412,6 +412,8 @@ public abstract class IgniteTxAdapter extends GridMetadataAwareAdapter implement
 
     /**
      * Uncommits transaction by invalidating all of its entries. Courtesy to minimize inconsistency.
+     *
+     * @param nodeStopping {@code True} if tx was cancelled during node stop.
      */
     @SuppressWarnings({"CatchGenericClass"})
     protected void uncommit(boolean nodeStopping) {
